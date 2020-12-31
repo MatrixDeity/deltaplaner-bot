@@ -38,9 +38,9 @@ pub fn (mut b Bot) start() {
 }
 
 fn (b Bot) answer_to(message telegram.Message, text string) {
-	b.client.send_message({
+	b.client.send_message(
 		chat_id: message.from.id.str()
 		text: text
 		reply_to_message_id: message.id
-	}) or { } // TODO: log it
+	) or { } // TODO: log it
 }

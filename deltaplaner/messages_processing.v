@@ -23,11 +23,7 @@ fn (mut b Bot) process_messages(mut wg sync.WaitGroup) {
 }
 
 fn (mut b Bot) fetch_updates() []telegram.Update {
-	updates := b.client.get_updates({
-		offset: b.last_update_id
-	}) or {
-		return []telegram.Update{}
-	}
+	updates := b.client.get_updates(offset: b.last_update_id) or { return []telegram.Update{} }
 	mut result := []telegram.Update{cap: updates.len}
 	for update in updates {
 		if b.last_update_id < update.id {
@@ -62,12 +58,12 @@ fn (mut b Bot) create_event(message telegram.Message) {
 		b.answer_to(message, 'Неправильный формат запроса!')
 		return
 	}
-	event_id := b.db.add_event({
+	event_id := b.db.add_event(
 		user_id: message.from.id
 		crontab: crontab
 		message: lines[1].trim_space()
 		counter: counter
-	})
+	)
 	b.answer_to(message, 'Событие #$event_id добавлено!')
 }
 

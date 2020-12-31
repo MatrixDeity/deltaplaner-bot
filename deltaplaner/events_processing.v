@@ -31,8 +31,5 @@ fn (mut b Bot) handle_events() {
 
 fn (b Bot) notificate_about(event database.Event) {
 	text := '#$event.id\n$event.message'
-	b.client.send_message({
-		chat_id: event.user_id.str()
-		text: text
-	}) or { } // TODO: log it
+	b.client.send_message(chat_id: event.user_id.str(), text: text) or { } // TODO: log it
 }

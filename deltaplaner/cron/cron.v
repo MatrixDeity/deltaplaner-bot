@@ -24,9 +24,7 @@ pub fn parse(expr string) ?(string, int) {
 		}
 	}
 	crontab := values[..values.len - 1].join(' ')
-	counter := to_integer(values[values.len - 1]) or {
-		-1
-	}
+	counter := to_integer(values[values.len - 1]) or { -1 }
 	return crontab, counter
 }
 
@@ -45,24 +43,14 @@ fn is_now_value(value string, target int, is_week_day bool) bool {
 			mut end := 0
 			if '/' in value {
 				mut pair := value.split_nth('-', 2)
-				begin = convert_part(pair[0], is_week_day) or {
-					continue
-				}
+				begin = convert_part(pair[0], is_week_day) or { continue }
 				pair = pair[1].split_nth('/', 2)
-				end = convert_part(pair[0], is_week_day) or {
-					continue
-				}
-				step = to_integer(pair[1]) or {
-					continue
-				}
+				end = convert_part(pair[0], is_week_day) or { continue }
+				step = to_integer(pair[1]) or { continue }
 			} else {
 				pair := value.split_nth('-', 2)
-				begin = convert_part(pair[0], is_week_day) or {
-					continue
-				}
-				end = convert_part(pair[1], is_week_day) or {
-					continue
-				}
+				begin = convert_part(pair[0], is_week_day) or { continue }
+				end = convert_part(pair[1], is_week_day) or { continue }
 			}
 			if in_range(target, begin, end + 1, step) {
 				return true
