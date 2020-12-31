@@ -34,8 +34,8 @@ docker-start:
 	docker run -d --rm \
 	    --name $(PROJECT) \
 	    --volume /etc/$(PROJECT):/etc/$(PROJECT) \
-		--env TZ=Europe/Moscow \
-		matrixdeity/$(PROJECT):latest
+	    --env TZ=Europe/Moscow \
+	    matrixdeity/$(PROJECT):latest
 
 .PHONY: docker-stop
 docker-stop:
